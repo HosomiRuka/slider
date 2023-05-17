@@ -11,6 +11,11 @@ html {
   box-sizing: border-box;
   overflow-y: scroll; /* All browsers without overlaying scrollbars */
   -webkit-text-size-adjust: 100%; /* iOS 8+ */
+  list-style: none;
+}
+
+ul li {
+  list-style: none;
 }
 
 *,
@@ -343,7 +348,6 @@ video {
   display: flex;
   justify-content: center;
   align-items: center;
-  list-style: none;
 }
 .l-header .l-header__nav .l-header__list .l-header__item {
   width: 100%;
@@ -355,10 +359,13 @@ video {
 .l-header .l-header__nav .l-header__list .l-header__item .l-header__link {
   text-decoration: none;
   color: #333;
-  transition: 0.3s;
 }
 .l-header .l-header__nav .l-header__list .l-header__item .l-header__link:hover {
   opacity: 0.5;
+}
+
+.transition {
+  transition: 0.3s;
 }
 
 .l-main .p-index-fv {
@@ -438,7 +445,6 @@ video {
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
-
 .btton {
   font-size: 100px;
   margin: 10px;

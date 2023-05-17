@@ -1,83 +1,59 @@
 let backButton = document.getElementById("back");
 let nextButton = document.getElementById("next");
 let item = document.getElementsByClassName("p-index-fv__item");
-let plus = 0;
-let itemWidth = 0;
+let currentLocation = 0;
+let currentSlideIndex  =  0;
+let itemWidth = item[0].clientWidth;
 
 
+// 画面幅を常に取得
 window.addEventListener('resize' , function(){
-  let itemWidth = item[0].clientWidth;
+  itemWidth = item[0].clientWidth;
+  currentLocation = itemWidth * currentSlideIndex;
   console.log(itemWidth);
-  let resizeImg = itemWidth / 2;
   for (let i = 0; i < item.length; i++) {
-    item[i].style.transform = `translateX(-${resizeImg}px)`;
-    console.log("リサイズが反映されています");  
-    console.log("現在地" + resizeImg);  
+    item[i].style.transform = `translateX(-${currentLocation}px)`;
+    // console.log("リサイズが反映されています");  
+    // console.log("現在地" + resizeImg);  
+    console.log(currentLocation);  
   }
 })
 
-// const imgResize = function(){
-//      let itemWidth = item[0].clientWidth;
-//      console.log(itemWidth);
-//      console.log("imgResizeが発動しました");
-//    }
-
-// imgResize();
-// window.addEventListener('resize', imgResize); //←これが動かない理由がわからない
-// imgResize();
-
-// clickイベント内にresizeイベント内の変数を使用したい
-// console.log(window.addEventListener('resize', imgResize)());
 
 // 戻るボタン
 backButton.addEventListener('click', function(){
-  let itemWidth = item[0].clientWidth;
-  if(plus > 0){
-    plus -= itemWidth;
+  if(currentLocation > 0){
+    currentSlideIndex--
+    currentLocation -= itemWidth;
     console.log("減ってます");
+    console.log(currentSlideIndex);
   }else{
     console.log("もう減らない：0です");
   }
   for (let i = 0; i < item.length; i++) {
-    item[i].style.transform = `translateX(-${plus}px)`;
+    item[i].style.transform = `translateX(-${currentLocation}px)`;
   }
-  // 無理やりねじ込んだresizeイベント
-  window.addEventListener('resize' , function(){
-    let itemWidth = item[0].clientWidth;
-    console.log(itemWidth);
-    for (let i = 0; i < item.length; i++) {
-      item[i].style.transform = `translateX(-${itemWidth}px)`;
-      console.log("戻る反映されてると");  
-    }
-  })
   console.log("戻る");  
 });
 
 
 // 次へボタン
 nextButton.addEventListener('click', function(){
-  let itemWidth = item[0].clientWidth;
-  // clickした時、plusがスライドの最大値(itemの長さから1引いた数にitemの横幅をかけた)より小さい場合itemの横幅を加算していく
-  if(plus < (item.length - 1) * itemWidth){
-    plus += itemWidth;
+  // clickした時、currentLocationがスライドの最大値(itemの長さから1引いた数にitemの横幅をかけた)より小さい場合itemの横幅を加算していく
+  if(currentLocation < (item.length - 1) * itemWidth){
+    currentSlideIndex++
+    currentLocation += itemWidth;
     console.log("増えてます");
     console.log(itemWidth);
+    console.log(currentSlideIndex);
   }else{
     console.log("もう増えないMAXです");
   }
   for (let i = 0; i < item.length; i++) {
-    item[i].style.transform = `translateX(-${plus}px)`;
-  }
-  // 無理やりねじ込んだresizeイベント
-  window.addEventListener('resize' , function(){
-    let itemWidth = item[0].clientWidth;
-    console.log(itemWidth);
-    for (let i = 0; i < item.length; i++) {
-      item[i].style.transform = `translateX(-${itemWidth}px)`;
-      console.log("すすむ反映されてると");  
-    }
-  })
-  
-  console.log(plus);
+    item[i].style.transform = `translateX(-${currentLocation}px)`;
+  }  
+  console.log(currentLocation);
   console.log("すすむ");
 })
+
+console.log(currentSlideIndex);
